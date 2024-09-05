@@ -1,9 +1,11 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
-#define uint unsigned int
+#include <iostream>
 #include <cstdio>
+#include <cstring>
 #include <string>
 #include <ctime>
+#include <exception>
 
 #pragma region DEFAULT_INTERNAL_CONSTS
 const std::string VALID_CHARS = "";
@@ -19,7 +21,7 @@ class Utils
 {
 public:
     static void clearStdioBuffers();
-    static void getRandomString(uint length); // here, you should set a size for the return string.
+    static std::string getRandomString(unsigned int length); // here, you should set a size for the return string.
 };
 
 void Utils::clearStdioBuffers()
@@ -28,9 +30,28 @@ void Utils::clearStdioBuffers()
     setbuf(stdout, NULL);
 }
 
-void Utils::getRandomString(uint length)
+std::string Utils::getRandomString(unsigned int length)
 {
+    try
+    {
+        if (length <= 0)
+        {
+            throw std::invalid_argument("You cannot create a invalid string in C++.");
+        }
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << "Utils.cpp error:" << e.what() << std::endl;
+    }
+
+    
     srand(time(NULL));
+    std::string _toreturn;
+    _toreturn = "";
+
+    for (unsigned int i = 0; i < length; i++)
+    {
+    }
 }
 
 #endif
